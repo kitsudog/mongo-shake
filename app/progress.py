@@ -5,8 +5,8 @@ import requests
 import os
 
 port=os.environ['FULL_SYNC_HTTP_PORT'] if os.environ['SYNC_MODE'] == 'full' else os.environ['FULL_SYNC_HTTP_PORT'] 
+print(f"wait for 127.0.0.1:{port} active")
 end=False
-time.sleep(5)
 with tqdm(total=100) as pbar:
     while not end:
         try:
@@ -31,6 +31,7 @@ with tqdm(total=100) as pbar:
                 pbar.n=sum
                 pbar.refresh()
         except Exception as e:
+            print(str(e))
             pass
         finally:
             time.sleep(3)

@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 python:3.11-slim
-#RUN apt update && apt install --no-install-recommends --no-install-suggests -y \
-#    python3 python3-pip python3-requests python3-pymongo python3-tqdm \
-#    && rm -fr /var/lib/apt/lists/* /var/log /var/cache/apt 
+RUN apt update && apt install --no-install-recommends --no-install-suggests -y \
+   procps curl telnet tcpdump net-tools ncat \
+   && rm -fr /var/lib/apt/lists/* /var/log /var/cache/apt 
 RUN pip install pymongo requests tqdm
 ADD mongo-shake-v2.8.4/ /app/
 ADD app /app/
