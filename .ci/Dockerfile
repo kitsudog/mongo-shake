@@ -1,12 +1,13 @@
 FROM --platform=linux/amd64 python:3.11-slim
 RUN apt update && apt install --no-install-recommends --no-install-suggests -y \
-   procps curl telnet tcpdump net-tools ncat \
+   procps curl telnet tcpdump net-tools ncat jq \
    && rm -fr /var/lib/apt/lists/* /var/log /var/cache/apt 
-RUN pip install pymongo requests tqdm
+RUN pip install pymongo requests tqdm psutil
 ADD mongo-shake-v2.8.4/ /app/
 ADD app /app/
 WORKDIR /app/
 VOLUME [ "/app/logs" ]
+ENV PYTHONUNBUFFERED=1
 ENV CONF_VERSION=10 \
     ID=mongoshake \
     MASTER_QUORUM=false \
